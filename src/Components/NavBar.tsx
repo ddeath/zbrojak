@@ -10,7 +10,10 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 
-const pages: string[] = ["Definície", "Testovanie", "FAQ"];
+import "./NavBar.css";
+import Logo from "../logo.svg";
+
+const pages: string[] = ["Úvod", "Príprava", "Testovanie", "FAQ"];
 
 export const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -26,28 +29,21 @@ export const NavBar = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#767d66" }}>
+    <AppBar position="static" sx={{ backgroundColor: "transparent" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
+          <img className="navbar-logo" src={Logo} alt="logo" />
+
+          <Box
             sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              rotate: "-3deg",
-              color: "inherit",
-              textDecoration: "none",
+              flexGrow: 1,
+              display: {
+                xs: "flex",
+                md: "none",
+              },
+              justifyContent: "end",
             }}
           >
-            ZBROJAK.ONLINE
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -77,36 +73,39 @@ export const NavBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    "&:hover": {
+                      color: "#FF6000",
+                    },
+                  }}
+                >
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
+          <Box
             sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
+              display: { xs: "none", md: "flex" },
+              justifyContent: "center",
             }}
           >
-            ZBROJAK.ONLINE
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                  "&:hover": {
+                    color: "#FF6000",
+                  },
+                }}
               >
                 {page}
               </Button>

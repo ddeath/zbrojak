@@ -1,0 +1,8 @@
+.root-container {
+  background-image: url("./background.jpeg");
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-size: cover;
+  box-shadow: inset 0em -2em 2em #0d1615;
+}
