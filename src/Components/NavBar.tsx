@@ -12,10 +12,23 @@ import MenuItem from "@mui/material/MenuItem";
 
 import "./NavBar.css";
 import Logo from "../logo.svg";
+import { useLocation } from "react-router-dom";
 
-const pages: string[] = ["Úvod", "Príprava", "Testovanie", "FAQ"];
+type Page = {
+  name: string;
+  path: string;
+};
+
+const pages: Page[] = [
+  { name: "Úvod", path: "/" },
+  { name: "Príprava", path: "/definitions" },
+  { name: "Testovanie", path: "/testing" },
+  { name: "FAQ", path: "/faq" },
+];
 
 export const NavBar = () => {
+  const location = useLocation();
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -29,7 +42,7 @@ export const NavBar = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "transparent" }}>
+    <AppBar position="absolute" sx={{ backgroundColor: "transparent" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <img className="navbar-logo" src={Logo} alt="logo" />
@@ -72,19 +85,26 @@ export const NavBar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{
-                    "&:hover": {
-                      color: "#FF6000",
-                    },
-                  }}
-                >
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              {pages.map((page) => {
+                const selected = location.pathname === page.path;
+
+                return (
+                  <MenuItem
+                    key={page.path}
+                    selected={selected}
+                    onClick={handleCloseNavMenu}
+                    sx={{
+                      color: selected ? "#FF6000" : "#ffffff",
+                      "&:hover": {
+                        color: "#FF6000",
+                      },
+                    }}
+                    href={page.path}
+                  >
+                    <Typography textAlign="center">{page.name}</Typography>
+                  </MenuItem>
+                );
+              })}
             </Menu>
           </Box>
           <Box
@@ -94,22 +114,27 @@ export const NavBar = () => {
               justifyContent: "center",
             }}
           >
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 2,
-                  color: "white",
-                  display: "block",
-                  "&:hover": {
-                    color: "#FF6000",
-                  },
-                }}
-              >
-                {page}
-              </Button>
-            ))}
+            {pages.map((page) => {
+              const selected = location.pathname === page.path;
+
+              return (
+                <Button
+                  key={page.path}
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    my: 2,
+                    color: selected ? "#FF6000" : "#ffffff",
+                    display: "block",
+                    "&:hover": {
+                      color: "#FF6000",
+                    },
+                  }}
+                  href={page.path}
+                >
+                  {page.name}
+                </Button>
+              );
+            })}
           </Box>
         </Toolbar>
       </Container>

@@ -1,51 +1,48 @@
 import React from "react";
 import { NavBar } from "./Components/NavBar";
 import "./App.css";
-import { Box, Button } from "@mui/material";
+import { Outlet, Route, Routes } from "react-router-dom";
+import { HomePage } from "./Pages/HomePage/HomePage";
+import { DefinitionsPage } from "./Pages/DefinitionsPage/DefinitionsPage";
+import { Box } from "@mui/material";
+import { TestingPage } from "./Pages/TestingPage/TestingPage";
+import { FaqPage } from "./Pages/FaqPage/FaqPage";
 
-import PripravaButton from "./button.svg";
-
-function App() {
+const Layout = () => {
   return (
     <div className="root-container">
       <NavBar />
+      <Outlet />
+
       <Box
         sx={{
-          flexGrow: 1,
+          backgroundColor: "#1f1f1d",
+          color: "#ffffff",
+          height: "4em",
           display: "flex",
-          marginTop: "5em",
-          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
+          marginTop: "4em",
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "rgba(0, 0, 0, 0.4)",
-          }}
-        >
-          <img
-            src={PripravaButton}
-            alt="logo"
-            style={{ width: "90vw", maxWidth: "500px" }}
-          />
-        </Box>
-        <Button
-          sx={{
-            backgroundColor: "#ff6000",
-            fontWeight: "bold",
-            marginTop: "2em",
-            color: "#ffffff",
-            padding: "0.5em 2em",
-          }}
-        >
-          Začať
-        </Button>
+        dusan@airsoftoperations.sk
       </Box>
     </div>
+  );
+};
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="definitions" element={<DefinitionsPage />} />
+        <Route path="testing" element={<TestingPage />} />
+        <Route path="faq" element={<FaqPage />} />
+
+        <Route path="*" element={<HomePage />} />
+      </Route>
+    </Routes>
   );
 }
 
